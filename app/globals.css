@@ -132,6 +132,50 @@ body {
   color: var(--gold-2);
 }
 
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.95rem 1.5rem;
+  border: 1px solid rgba(248, 113, 113, 0.45);
+  color: #fecaca;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  transition: 0.35s ease;
+}
+
+.btn-danger:hover {
+  background: rgba(248, 113, 113, 0.12);
+}
+
+.badge {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.62rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid;
+}
+
+.badge-pending {
+  color: var(--gold-2);
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.badge-approved {
+  color: #b7e4c7;
+  border-color: rgba(116, 172, 223, 0.45);
+  background: rgba(116, 172, 223, 0.12);
+}
+
+.badge-rejected {
+  color: #fecaca;
+  border-color: rgba(248, 113, 113, 0.4);
+  background: rgba(248, 113, 113, 0.08);
+}
+
 .field {
   width: 100%;
   background: transparent;
@@ -145,6 +189,11 @@ body {
 
 .field:focus {
   border-bottom-color: var(--gold);
+}
+
+select.field option {
+  background: #0d1422;
+  color: #f6f1e7;
 }
 
 textarea.field {

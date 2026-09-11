@@ -10,6 +10,7 @@ export type Memory = {
   tribute_id: string | null;
   submitted_at: string;
   reviewed_at: string | null;
+  review_note?: string | null;
 };
 
 export type GalleryMemory = {

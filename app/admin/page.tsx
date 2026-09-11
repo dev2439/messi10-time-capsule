@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function AdminPage() {
   return (
-    <div className="mx-auto max-w-5xl px-5 pb-24 pt-32">
+    <div className="mx-auto max-w-7xl px-5 pb-24 pt-32">
       <AdminPanel />
     </div>
   );

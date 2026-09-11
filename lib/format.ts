@@ -6,6 +6,16 @@ export function formatDate(value: string) {
   });
 }
 
+export function formatDateTime(value: string) {
+  return new Date(value).toLocaleString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
 export function excerpt(text: string, max = 140) {
   const clean = text.replace(/\s+/g, " ").trim();
   if (clean.length <= max) return clean;
