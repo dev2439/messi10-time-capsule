@@ -28,9 +28,6 @@ export function Footer() {
             <Link href="/admin" className="hover:text-[var(--gold)]">
               Moderation
             </Link>
-            <a href={SITE.whatsapp.href} className="hover:text-[var(--gold)]" target="_blank" rel="noreferrer">
-              WhatsApp {SITE.whatsapp.display}
-            </a>
           </div>
         </div>
         <div className="gold-line my-10" />

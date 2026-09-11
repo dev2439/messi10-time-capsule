@@ -11,11 +11,6 @@ export const SITE = {
     name: "Dev2439",
     url: "https://github.com/dev2439",
   },
-  whatsapp: {
-    display: "+1 (315) 690-2204",
-    href: "https://wa.me/13156902204?text=Hi%20Hassan.%20Contact%20via%20my%20whatsapp.%20Let%27s%20continue%20discussion%20on%20whatsapp.",
-    message: "Hi, Hassan. Contact via my whatsapp. Let's continue discussion on whatsapp.",
-  },
   supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL || "https://lgwtgmqoxapnryuvoskg.supabase.co",
   supabaseAnonKey:
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||

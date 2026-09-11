@@ -211,10 +211,11 @@ textarea.field {
   mix-blend-mode: overlay;
 }
 
-.whatsapp-number {
-  font-size: clamp(2.8rem, 12vw, 9.5rem);
-  line-height: 0.95;
-  letter-spacing: 0.02em;
+.kicker {
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  color: var(--gold);
 }
 
 @keyframes rise {
