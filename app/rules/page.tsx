@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PhotoFrame } from "@/components/PhotoGrid";
+import { PHOTOS } from "@/lib/photos";
 
 export const metadata: Metadata = {
   title: "Rules & guidelines",
@@ -35,33 +37,46 @@ const rules = [
 
 export default function RulesPage() {
   return (
-    <div className="mx-auto max-w-4xl px-5 pb-24 pt-32">
-      <p className="kicker">House rules</p>
-      <h1 className="font-serif mt-4 text-5xl md:text-6xl">A beautiful wall needs a careful door.</h1>
-      <p className="mt-6 text-sm leading-7 text-[var(--muted)]">
-        This is a fan-built gift. The standard is simple: write as if the person beside you in the
-        stadium might read it too.
-      </p>
-
-      <div className="mt-12 grid gap-5">
-        {rules.map((rule, index) => (
-          <article key={rule.title} className="frame p-7">
-            <p className="text-xs tracking-[0.3em] text-[var(--gold)]">
-              {String(index + 1).padStart(2, "0")}
-            </p>
-            <h2 className="font-serif mt-3 text-3xl">{rule.title}</h2>
-            <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{rule.copy}</p>
-          </article>
-        ))}
+    <div className="pb-24 pt-28">
+      <div className="mx-auto grid max-w-6xl gap-6 px-5 lg:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <p className="kicker">House rules</p>
+          <h1 className="font-serif mt-4 text-5xl md:text-6xl">A beautiful wall needs a careful door.</h1>
+          <p className="mt-6 text-sm leading-7 text-[var(--muted)]">
+            This is a fan-built gift. The standard is simple: write as if the person beside you in the
+            stadium might read it too.
+          </p>
+        </div>
+        <PhotoFrame photo={PHOTOS.crowd} className="min-h-[280px]" />
       </div>
 
-      <div className="mt-12 flex flex-col gap-3 sm:flex-row">
-        <Link href="/share" className="btn-gold sm:!w-auto">
-          I understand — write a memory
-        </Link>
-        <Link href="/gallery" className="btn-ghost sm:!w-auto">
-          Visit the gallery
-        </Link>
+      <div className="mx-auto mt-10 grid max-w-6xl gap-3 px-5 md:grid-cols-3">
+        <PhotoFrame photo={PHOTOS.campNou} className="aspect-[16/10]" />
+        <PhotoFrame photo={PHOTOS.shirts} className="aspect-[16/10]" />
+        <PhotoFrame photo={PHOTOS.confetti} className="aspect-[16/10]" />
+      </div>
+
+      <div className="mx-auto max-w-4xl px-5">
+        <div className="mt-12 grid gap-5">
+          {rules.map((rule, index) => (
+            <article key={rule.title} className="frame p-7">
+              <p className="text-xs tracking-[0.3em] text-[var(--gold)]">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <h2 className="font-serif mt-3 text-3xl">{rule.title}</h2>
+              <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{rule.copy}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-12 flex flex-col gap-3 sm:flex-row">
+          <Link href="/share" className="btn-gold sm:!w-auto">
+            I understand — write a memory
+          </Link>
+          <Link href="/gallery" className="btn-ghost sm:!w-auto">
+            Visit the gallery
+          </Link>
+        </div>
       </div>
     </div>
   );

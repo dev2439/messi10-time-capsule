@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { PhotoFrame } from "@/components/PhotoGrid";
 import { ShareForm } from "@/components/ShareForm";
+import { PHOTOS } from "@/lib/photos";
 
 export const metadata: Metadata = {
   title: "Share your memory",
@@ -22,6 +24,13 @@ export default function SharePage() {
             <li>Publication is never guaranteed.</li>
             <li>Passports are issued only after human approval.</li>
           </ul>
+          <div className="mt-10 grid grid-cols-2 gap-3">
+            <PhotoFrame photo={PHOTOS.sit} className="col-span-2 aspect-[16/9]" />
+            <PhotoFrame photo={PHOTOS.rain} className="aspect-[4/3]" />
+            <PhotoFrame photo={PHOTOS.celebration} className="aspect-[4/3]" />
+            <PhotoFrame photo={PHOTOS.kid} className="aspect-[4/3]" />
+            <PhotoFrame photo={PHOTOS.street} className="aspect-[4/3]" />
+          </div>
         </div>
         <ShareForm />
       </div>

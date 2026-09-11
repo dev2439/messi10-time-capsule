@@ -184,6 +184,19 @@ textarea.field {
   animation: rise 0.9s ease both;
 }
 
+@keyframes film-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.film-strip {
+  animation: film-scroll 48s linear infinite;
+}
+
 @keyframes pulse-gold {
   0%,
   100% {

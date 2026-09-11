@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PassportActions } from "@/components/PassportActions";
 import { getMemoryByTributeId } from "@/lib/data";
+import { PHOTOS } from "@/lib/photos";
 import { SITE } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -35,17 +36,25 @@ export default async function PassportPage({
   if (!memory) notFound();
 
   return (
-    <div className="mx-auto max-w-6xl px-5 pb-24 pt-32">
-      <div className="grid items-center gap-12 lg:grid-cols-[1fr_auto]">
-        <div>
-          <p className="kicker">Issued collectible</p>
-          <h1 className="font-serif mt-4 text-5xl md:text-6xl">{memory.tribute_id}</h1>
-          <p className="mt-5 max-w-lg text-lg leading-8 text-[var(--muted)]">
-            {memory.name}, {memory.location}. A Messi Passport created after human approval — ready to
-            download and share.
-          </p>
+    <div className="relative pb-24 pt-32">
+      <img
+        src={PHOTOS.campNou.src}
+        alt=""
+        className="pointer-events-none absolute inset-0 h-[420px] w-full object-cover opacity-25"
+      />
+      <div className="absolute inset-x-0 top-0 h-[420px] bg-gradient-to-b from-[#070b14]/40 to-[#070b14]" />
+      <div className="relative mx-auto max-w-6xl px-5">
+        <div className="grid items-center gap-12 lg:grid-cols-[1fr_auto]">
+          <div>
+            <p className="kicker">Issued collectible</p>
+            <h1 className="font-serif mt-4 text-5xl md:text-6xl">{memory.tribute_id}</h1>
+            <p className="mt-5 max-w-lg text-lg leading-8 text-[var(--muted)]">
+              {memory.name}, {memory.location}. A Messi Passport created after human approval — ready to
+              download and share.
+            </p>
+          </div>
+          <PassportActions memory={memory} />
         </div>
-        <PassportActions memory={memory} />
       </div>
     </div>
   );

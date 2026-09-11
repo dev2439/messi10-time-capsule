@@ -1,20 +1,22 @@
 import Link from "next/link";
 import { MemoryCard } from "@/components/MemoryCard";
+import { PhotoFrame, PhotoMosaic, PhotoStrip } from "@/components/PhotoGrid";
 import { getApprovedMemories, getGalleryStats } from "@/lib/data";
+import { PHOTOS, STORY_PHOTOS, STRIP_PHOTOS } from "@/lib/photos";
 import { SITE } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
 const chapters = [
-  { n: "01", title: "Rosario", copy: "A boy, a ball, a city that still hears the first kick." },
-  { n: "10", title: "The Number", copy: "Not a shirt. A language spoken on every continent." },
-  { n: "22", title: "The Final", copy: "A night when the planet held its breath together." },
+  { n: "01", title: "Rosario", copy: "A boy, a ball, a city that still hears the first kick.", photo: PHOTOS.rosario },
+  { n: "10", title: "The Number", copy: "Not a shirt. A language spoken on every continent.", photo: PHOTOS.dribble },
+  { n: "22", title: "The Final", copy: "A night when the planet held its breath together.", photo: PHOTOS.finalNight },
 ];
 
 const steps = [
-  { n: "01", title: "Write", text: "Leave your name, your city, and the memory only you can tell." },
-  { n: "02", title: "Human review", text: "Nothing is published automatically. Every line is read." },
-  { n: "03", title: "Receive your passport", text: "If approved, a unique Messi Passport is issued for you to keep and share." },
+  { n: "01", title: "Write", text: "Leave your name, your city, and the memory only you can tell.", photo: PHOTOS.locker },
+  { n: "02", title: "Human review", text: "Nothing is published automatically. Every line is read.", photo: PHOTOS.kid },
+  { n: "03", title: "Receive your passport", text: "If approved, a unique Messi Passport is issued for you to keep and share.", photo: PHOTOS.goldenBall },
 ];
 
 export default async function HomePage() {
@@ -27,14 +29,14 @@ export default async function HomePage() {
         <div
           className="absolute inset-0 scale-105"
           style={{
-            backgroundImage: "url(/images/hero-stadium.png)",
+            backgroundImage: "url(/images/messi-dribble.png)",
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "center top",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#070b14]/30 via-[#070b14]/45 to-[#070b14]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070b14]/25 via-[#070b14]/50 to-[#070b14]" />
         <div
-          className="absolute inset-0 opacity-40 mix-blend-screen"
+          className="absolute inset-0 opacity-30 mix-blend-screen"
           style={{ backgroundImage: "url(/images/gold-bokeh.png)", backgroundSize: "cover" }}
         />
 
@@ -63,8 +65,10 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <PhotoStrip photos={STRIP_PHOTOS} />
+
       <section className="mx-auto max-w-6xl px-5 py-24">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <p className="kicker">Why this exists</p>
             <h2 className="font-serif mt-4 text-4xl md:text-5xl">A gift, not a campaign.</h2>
@@ -75,38 +79,55 @@ export default async function HomePage() {
             </p>
             <p className="mt-6 max-w-xl text-sm leading-7 text-[var(--muted)]">{SITE.disclaimer}</p>
           </div>
-          <div className="relative">
-            <img
-              src="/images/number-10-silhouette.png"
-              alt="A footballer wearing number 10 walking toward the lights"
-              className="w-full border border-[var(--line)] object-cover"
-            />
-            <span className="stamp absolute right-6 top-6">No. 10</span>
+          <div className="grid grid-cols-2 gap-3">
+            <PhotoFrame photo={PHOTOS.portrait} className="aspect-[3/4]" />
+            <div className="grid gap-3">
+              <PhotoFrame photo={PHOTOS.sky} className="aspect-square" />
+              <PhotoFrame photo={PHOTOS.football} className="aspect-[4/3]" />
+            </div>
           </div>
         </div>
       </section>
 
       <section className="border-y border-[var(--line)]">
-        <div className="mx-auto grid max-w-6xl gap-px bg-[var(--line)] md:grid-cols-3">
+        <div className="mx-auto grid max-w-6xl md:grid-cols-3">
           {chapters.map((chapter) => (
-            <div key={chapter.n} className="bg-[var(--navy)] px-8 py-12">
-              <p className="font-serif text-5xl gold-text">{chapter.n}</p>
-              <h3 className="mt-6 font-serif text-3xl">{chapter.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{chapter.copy}</p>
+            <div key={chapter.n} className="relative min-h-[420px] overflow-hidden">
+              <img src={chapter.photo.src} alt={chapter.photo.alt} className="absolute inset-0 h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#070b14] via-[#070b14]/55 to-black/20" />
+              <div className="relative flex h-full flex-col justify-end px-8 py-12">
+                <p className="font-serif text-5xl gold-text">{chapter.n}</p>
+                <h3 className="mt-6 font-serif text-3xl">{chapter.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-[var(--gold-2)]/90">{chapter.copy}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-24">
+        <p className="kicker">A life in pictures</p>
+        <h2 className="font-serif mt-4 max-w-3xl text-4xl md:text-5xl">From a dusty street to every floodlit night.</h2>
+        <p className="mt-5 max-w-2xl text-sm leading-7 text-[var(--muted)]">
+          Original artwork created for this tribute — Messi, the ball, the stadiums, the living rooms.
+        </p>
+        <div className="mt-12">
+          <PhotoMosaic photos={STORY_PHOTOS} />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-24">
         <p className="kicker">How the capsule works</p>
         <h2 className="font-serif mt-4 max-w-3xl text-4xl md:text-5xl">Three quiet steps. One lasting tribute.</h2>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {steps.map((step) => (
-            <div key={step.n} className="frame p-7">
-              <p className="text-[var(--gold)] tracking-[0.3em] text-xs">{step.n}</p>
-              <h3 className="font-serif mt-4 text-3xl">{step.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{step.text}</p>
+            <div key={step.n} className="frame overflow-hidden">
+              <img src={step.photo.src} alt={step.photo.alt} className="h-44 w-full object-cover" />
+              <div className="p-7">
+                <p className="text-[var(--gold)] tracking-[0.3em] text-xs">{step.n}</p>
+                <h3 className="font-serif mt-4 text-3xl">{step.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{step.text}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -114,7 +135,7 @@ export default async function HomePage() {
 
       <section className="relative overflow-hidden py-24">
         <div
-          className="absolute inset-0 opacity-25"
+          className="absolute inset-0 opacity-30"
           style={{ backgroundImage: "url(/images/world-dots.png)", backgroundSize: "cover" }}
         />
         <div className="relative mx-auto max-w-6xl px-5">
@@ -135,22 +156,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-28">
-        <div className="frame relative overflow-hidden px-6 py-14 md:px-16">
-          <img
-            src="/images/crest-10.png"
-            alt=""
-            className="pointer-events-none absolute -right-8 -top-10 h-56 w-56 opacity-20"
-          />
-          <p className="kicker">The Messi Passport</p>
-          <h2 className="font-serif mt-4 max-w-3xl text-4xl md:text-6xl">A premium digital collectible for every approved tribute.</h2>
-          <p className="mt-6 max-w-2xl text-sm leading-7 text-[var(--muted)]">
-            Name, unique Tribute ID, date, a short excerpt, a QR back to {SITE.domain}, and the
-            non-affiliation disclaimer — designed as something fans will be proud to share.
-          </p>
-          <Link href="/share" className="btn-gold mt-10 sm:!w-auto">
-            Begin your tribute
-          </Link>
+      <section className="relative mx-auto max-w-6xl px-5 pb-28">
+        <div className="relative overflow-hidden border border-[var(--line)]">
+          <img src={PHOTOS.trophy.src} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#070b14] via-[#070b14]/85 to-[#070b14]/40" />
+          <div className="relative px-6 py-14 md:px-16">
+            <p className="kicker">The Messi Passport</p>
+            <h2 className="font-serif mt-4 max-w-3xl text-4xl md:text-6xl">A premium digital collectible for every approved tribute.</h2>
+            <p className="mt-6 max-w-2xl text-sm leading-7 text-[var(--muted)]">
+              Name, unique Tribute ID, date, a short excerpt, a QR back to {SITE.domain}, and the
+              non-affiliation disclaimer — designed as something fans will be proud to share.
+            </p>
+            <Link href="/share" className="btn-gold mt-10 sm:!w-auto">
+              Begin your tribute
+            </Link>
+          </div>
         </div>
       </section>
     </div>
