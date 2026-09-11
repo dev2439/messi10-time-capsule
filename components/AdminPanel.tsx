@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { excerpt, formatDateTime, rpcError } from "@/lib/format";
+import { photoForId, STRIP_PHOTOS } from "@/lib/photos";
+import { PhotoStrip } from "@/components/PhotoGrid";
 import { supabase } from "@/lib/supabase";
 import type { Memory, MemoryStatus } from "@/lib/types";
 
@@ -159,25 +161,32 @@ export function AdminPanel() {
 
   if (!authed) {
     return (
-      <form onSubmit={onLogin} className="frame mx-auto max-w-md p-8">
-        <p className="kicker">Moderation desk</p>
-        <h1 className="font-serif mt-3 text-4xl">Sign in</h1>
-        <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-          Review every tribute before it is published. Rejected records remain in the archive.
-        </p>
-        <input
-          className="field mt-8"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Admin password"
-          required
+      <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+        <img
+          src="/images/messi-portrait.png"
+          alt="Lionel Messi"
+          className="h-[420px] w-full object-cover border border-[var(--line)]"
         />
-        {error && <p className="mt-4 text-sm text-red-200">{error}</p>}
-        <button className="btn-gold mt-8" type="submit" disabled={loading}>
-          {loading ? "Checking…" : "Open the desk"}
-        </button>
-      </form>
+        <form onSubmit={onLogin} className="frame p-8">
+          <p className="kicker">Moderation desk</p>
+          <h1 className="font-serif mt-3 text-4xl">Sign in</h1>
+          <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
+            Review every tribute before it is published. Rejected records remain in the archive.
+          </p>
+          <input
+            className="field mt-8"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Admin password"
+            required
+          />
+          {error && <p className="mt-4 text-sm text-red-200">{error}</p>}
+          <button className="btn-gold mt-8" type="submit" disabled={loading}>
+            {loading ? "Checking…" : "Open the desk"}
+          </button>
+        </form>
+      </div>
     );
   }
 
@@ -202,6 +211,10 @@ export function AdminPanel() {
             Sign out
           </button>
         </div>
+      </div>
+
+      <div className="mt-8 -mx-5">
+        <PhotoStrip photos={STRIP_PHOTOS} />
       </div>
 
       <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -242,7 +255,8 @@ export function AdminPanel() {
       {error && <p className="mt-4 text-sm text-red-200">{error}</p>}
 
       <div className="mt-8 overflow-hidden border border-[var(--line)]">
-        <div className="hidden grid-cols-[1.1fr_0.8fr_0.7fr_1.6fr_0.7fr] gap-4 border-b border-[var(--line)] px-5 py-3 text-[0.62rem] tracking-[0.2em] uppercase text-[var(--muted)] lg:grid">
+        <div className="hidden grid-cols-[88px_1.1fr_0.8fr_0.7fr_1.4fr_0.7fr] gap-4 border-b border-[var(--line)] px-5 py-3 text-[0.62rem] tracking-[0.2em] uppercase text-[var(--muted)] lg:grid">
+          <span>Image</span>
           <span>Fan</span>
           <span>Location</span>
           <span>Submitted</span>
@@ -256,16 +270,22 @@ export function AdminPanel() {
 
         {visible.map((memory) => {
           const expanded = openId === memory.id;
+          const photo = photoForId(memory.tribute_id || memory.id);
           return (
             <article key={memory.id} className="border-b border-[var(--line)] last:border-b-0">
               <button
                 type="button"
-                className="grid w-full gap-2 px-5 py-5 text-left lg:grid-cols-[1.1fr_0.8fr_0.7fr_1.6fr_0.7fr] lg:items-center"
+                className="grid w-full gap-3 px-5 py-4 text-left lg:grid-cols-[88px_1.1fr_0.8fr_0.7fr_1.4fr_0.7fr] lg:items-center"
                 onClick={() => {
                   setOpenId(expanded ? null : memory.id);
                   setNote("");
                 }}
               >
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  className="h-16 w-20 object-cover border border-[var(--line)]"
+                />
                 <div>
                   <p className="font-serif text-xl">{memory.name}</p>
                   {memory.tribute_id && <p className="mt-1 text-xs text-[var(--gold)]">{memory.tribute_id}</p>}
@@ -278,6 +298,13 @@ export function AdminPanel() {
 
               {expanded && (
                 <div className="border-t border-[var(--line)] bg-black/20 px-5 py-6">
+                  <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      className="h-64 w-full object-cover border border-[var(--line)]"
+                    />
+                    <div>
                   <p className="text-sm leading-7">“{memory.message}”</p>
                   {memory.favourite_moment && (
                     <p className="mt-4 text-xs tracking-[0.16em] uppercase text-[var(--celeste)]">
@@ -335,6 +362,8 @@ export function AdminPanel() {
                       Restore to pending
                     </button>
                   )}
+                    </div>
+                  </div>
                 </div>
               )}
             </article>
