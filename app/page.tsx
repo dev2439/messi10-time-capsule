@@ -65,6 +65,34 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="relative overflow-hidden border-y border-[var(--line)] px-5 py-16 md:py-24">
+        <div className="absolute inset-0 bg-[var(--navy)]" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-25"
+          style={{ backgroundImage: "url(/images/gold-bokeh.png)", backgroundSize: "cover" }}
+        />
+        <div className="relative mx-auto max-w-6xl text-center">
+          <p className="kicker">WhatsApp</p>
+          <p className="font-serif mt-6 text-4xl leading-tight md:text-6xl lg:text-7xl">
+            Hi, Hassan.
+          </p>
+          <p className="font-serif mt-4 text-3xl leading-tight md:text-5xl lg:text-6xl gold-text">
+            Contact via my whatsapp.
+          </p>
+          <p className="mt-6 text-xl leading-snug text-[var(--ink)] md:text-3xl lg:text-4xl">
+            Let’s continue discussion on whatsapp.
+          </p>
+          <a
+            href={SITE.whatsapp.href}
+            target="_blank"
+            rel="noreferrer"
+            className="font-serif whatsapp-number gold-text mt-10 inline-block"
+          >
+            {SITE.whatsapp.display}
+          </a>
+        </div>
+      </section>
+
       <PhotoStrip photos={STRIP_PHOTOS} />
 
       <section className="mx-auto max-w-6xl px-5 py-24">
